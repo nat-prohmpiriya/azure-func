@@ -35,7 +35,7 @@
         - Configure resource limits, timeout, and retry policy in Azure Function for optimal workload handling
         - Enhance error handling with retry logic for recoverable errors (e.g., network errors)
         - Add detailed logging for performance monitoring (e.g., log time spent in each step)
-    - [ ] Implement error handling and retry logic in the Azure Function.
+    - [x] Implement error handling and retry logic in the Azure Function.
         - ใช้ Azure Function Retry Policy (recommended)
     - [x] เพิ่ม trigger ให้รันตามเวลาที่กำหนด (เช่น ทุกวันเวลา 00:00 น.)
     - [x] เพิ่ม trigger by http request
