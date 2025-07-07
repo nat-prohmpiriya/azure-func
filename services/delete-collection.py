@@ -1,6 +1,8 @@
 from typing import Optional
 from pymongo import MongoClient
 from pymongo.collection import Collection
+import os
+from dotenv import load_dotenv
 
 def delete_collection(
     uri: str,
@@ -35,7 +37,8 @@ def delete_collection(
 
 if __name__ == "__main__":
     # Example usage
-    MONGO_URI: str = "mongodb+srv://admin_aisandbox:47CA6ybdKb8Lu2xF@cluster0.j6wrw1r.mongodb.net"
+    load_dotenv(dotenv_path=".env.local")
+    MONGO_URI: str = os.getenv("MONGO_URI", "")
     DATABASE_NAME: str = "AISandbox"
     COLLECTION_NAME: str = "card_delivery_status"
 
