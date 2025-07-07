@@ -25,10 +25,12 @@
     - [x] Deploy the Azure Function to Azure.
         - [x] create script deploy_function.sh
         - [x] Run the script to deploy the Azure Function.
-    - [] test upload fine
-    - [ ] Set up monitoring and logging for the Azure Function.
+    - [x] test upload fine
+    - [x] Set up monitoring and logging for the Azure Function.
     - [ ] Optimize the ETL pipeline for performance and scalability.
     - [ ] Implement error handling and retry logic in the Azure Function.
-    - [ ] เพิ่ม trigger ให้รันตามเวลาที่กำหนด (เช่น ทุกวันเวลา 00:00 น.)
+    - [x] เพิ่ม trigger ให้รันตามเวลาที่กำหนด (เช่น ทุกวันเวลา 00:00 น.)
+    - [x] เพิ่ม trigger by http request
+    - [x] เพิ่มการจัดการ environment variables ใน Azure Function
 
 ## CURRENT GOALS

@@ -12,36 +12,60 @@ class ETLService:
         self.tracking_collection_name: str = "etl_file_tracking"
 
     def has_processed(self, filename: str) -> bool:
-        client: MongoClient = MongoClient(self.mongo_uri)
-        db = client[self.mongo_db]
-        tracking = db[self.tracking_collection_name]
-        exists: bool = tracking.find_one({"filename": filename}) is not None
-        client.close()
-        return exists
+        try:
+            client: MongoClient = MongoClient(self.mongo_uri)
+            db = client[self.mongo_db]
+            tracking = db[self.tracking_collection_name]
+            exists: bool = tracking.find_one({"filename": filename}) is not None
+            client.close()
+            logging.info(f"Check if '{filename}' has been processed: {exists}")
+            return exists
+        except Exception as e:
+            logging.error(f"Error in has_processed for '{filename}': {e}")
+            return False
 
     def mark_processed(self, filename: str) -> None:
-        client: MongoClient = MongoClient(self.mongo_uri)
-        db = client[self.mongo_db]
-        tracking = db[self.tracking_collection_name]
-        tracking.insert_one({"filename": filename})
-        client.close()
+        try:
+            client: MongoClient = MongoClient(self.mongo_uri)
+            db = client[self.mongo_db]
+            tracking = db[self.tracking_collection_name]
+            tracking.insert_one({"filename": filename})
+            client.close()
+            logging.info(f"Marked '{filename}' as processed.")
+        except Exception as e:
+            logging.error(f"Error in mark_processed for '{filename}': {e}")
 
     def extract(self, file_content: bytes) -> pd.DataFrame:
-        df: pd.DataFrame = pd.read_csv(io.BytesIO(file_content))
-        return df
+        try:
+            df: pd.DataFrame = pd.read_csv(io.BytesIO(file_content))
+            logging.info(f"Extracted {len(df)} rows from file.")
+            return df
+        except Exception as e:
+            logging.error(f"Error in extract: {e}")
+            raise
 
     def transform(self, df: pd.DataFrame) -> pd.DataFrame:
-        df['processed'] = True
-        return df
+        try:
+            df['processed'] = True
+            logging.info("Transformed data: added 'processed' column.")
+            return df
+        except Exception as e:
+            logging.error(f"Error in transform: {e}")
+            raise
 
     def load(self, df: pd.DataFrame) -> None:
-        client: MongoClient = MongoClient(self.mongo_uri)
-        db = client[self.mongo_db]
-        collection = db[self.mongo_collection]
-        records = df.to_dict(orient='records')
-        if records:
-            collection.insert_many(records)
-        client.close()
+        try:
+            client: MongoClient = MongoClient(self.mongo_uri)
+            db = client[self.mongo_db]
+            collection = db[self.mongo_collection]
+            records = df.to_dict(orient='records')
+            if records:
+                collection.insert_many(records)
+                logging.info(f"Loaded {len(records)} records to MongoDB.")
+            client.close()
+        except Exception as e:
+            logging.error(f"Error in load: {e}")
+            raise
 
     def run_etl(self, file_content: bytes, filename: Optional[str] = None) -> None:
         if filename and self.has_processed(filename):
