@@ -38,7 +38,7 @@ def delete_collection(
 if __name__ == "__main__":
     # Example usage
     load_dotenv(dotenv_path=".env.local")
-    MONGO_URI: str = os.getenv("MONGO_URI", "")
+    MONGO_URI: str = os.getenv("MONGODB_URI", "")
     DATABASE_NAME: str = "AISandbox"
     COLLECTION_NAME: str = "card_delivery_status"
 

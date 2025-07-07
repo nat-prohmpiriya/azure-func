@@ -17,8 +17,8 @@ RESOURCE_GROUP="etl-th-group"
 # Deploy โค้ดขึ้น Azure Function App
 func azure functionapp publish "$FUNCTION_APP"
 
-# สร้าง string สำหรับ --settings จากตัวแปรทั้งหมดใน .env.local
-SETTINGS_STRING=$(grep -v '^#' "$ENV_FILE" | grep -v '^$' | xargs -d '\n' -I {} echo {} | tr '\n' ' ')
+# สร้าง string สำหรับ --settings จากตัวแปรทั้งหมดใน .env.local (รองรับ macOS/BSD)
+SETTINGS_STRING=$(grep -v '^#' "$ENV_FILE" | grep -v '^$' | tr '\n' ' ')
 
 # ตั้งค่า Environment Variables ทั้งหมด
 az functionapp config appsettings set \
@@ -26,4 +26,4 @@ az functionapp config appsettings set \
   --resource-group "$RESOURCE_GROUP" \
   --settings $SETTINGS_STRING
 
-echo "Deploy และตั้งค่า environment variable สำเร็จแล้ว"
+echo "Deploy Azure Function และตั้งค่า environment variable สำเร็จแล้ว"
