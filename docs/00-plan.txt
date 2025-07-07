@@ -27,6 +27,11 @@
         - [x] Run the script to deploy the Azure Function.
     - [x] test upload fine
     - [x] Set up monitoring and logging for the Azure Function.
+    - [x] Implement error handling and retry logic in the Azure Function.
+        - ใช้ Azure Function Retry Policy
+    - [x] เพิ่ม trigger ให้รันตามเวลาที่กำหนด (เช่น ทุกวันเวลา 00:00 น.)
+    - [x] เพิ่ม trigger by http request
+    - [x] เพิ่มการจัดการ environment variables ใน Azure Function
     - [ ] Optimize the ETL pipeline for performance and scalability.
         - Implement batch insert for large DataFrames (e.g., insert 500-1000 records per batch to reduce memory spike and timeout)
         - Add parallel processing for multiple large files using Azure Durable Functions or fan-out/fan-in pattern
@@ -35,10 +40,5 @@
         - Configure resource limits, timeout, and retry policy in Azure Function for optimal workload handling
         - Enhance error handling with retry logic for recoverable errors (e.g., network errors)
         - Add detailed logging for performance monitoring (e.g., log time spent in each step)
-    - [x] Implement error handling and retry logic in the Azure Function.
-        - ใช้ Azure Function Retry Policy (recommended)
-    - [x] เพิ่ม trigger ให้รันตามเวลาที่กำหนด (เช่น ทุกวันเวลา 00:00 น.)
-    - [x] เพิ่ม trigger by http request
-    - [x] เพิ่มการจัดการ environment variables ใน Azure Function
 
 ## CURRENT GOALS
